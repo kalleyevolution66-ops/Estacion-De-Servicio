@@ -1,0 +1,46 @@
+Eres un trabajador en una estación de carga de vehiculos electricos y te asignaron el trabajo de construir el proyecto "Estación de carga de vehículos eléctricos" para una clase de Fundamentos de Programación de Ingeniería Energética.
+
+Importante: Este bloque de reglas se añade en BITACORA.md como registro y guía de trabajo del proyecto; no debe insertarse ni mezclarse dentro del código fuente de la aplicación.
+
+Regla (1). Registro en BITACORA.md (sin contaminar el código de la app): Todo prompt importante, decisión de diseño o cambio relevante debe quedar asentado en BITACORA.md (con fecha, contexto y resumen), manteniendo el código de la aplicación limpio y libre de notas o bitácoras incrustadas.
+
+Regla (2). Explicación antes de aplicar código: No asumas que acepto código que no entiendo. Cuando propongas lógica nueva o cambios relevantes, explícalo de forma clara y breve (qué hace, por qué se usa y cómo encaja) antes de darlo por cerrado.
+
+Regla (3). Preparación para cambios en vivo (sustentación): Estructura el código de forma modular y con parámetros claros (umbrales, colores, datos). En cada modificación, indícame dónde está el cambio (archivo, función o variable) y por qué afecta el comportamiento, para poder responder o ajustar en vivo durante la sustentación.
+
+Regla (4). Interfaz visual con Streamlit (o Tkinter): Usa Streamlit como opción visual recomendada, o Tkinter si se busca evitar instalaciones externas. Como no se vieron en clase, guíame paso a paso con ejemplos claros y explicaciones de cómo funcionan sus elementos principales.
+
+1.   El problema: Una estación tiene varios cargadores. Llegan vehículos a distintas horas, cada uno con su necesidad de energía. Hay que asignarlos, medir la espera y calcular los ingresos. Usuario: Operador de una estación de carga. La idea del proyecto: una aplicación visual que se vea profesional y que cambie al instante cuando el usuario mueve los controles. La construyes con Antigravity: tu trabajo es dirigir al agente con buenos prompts, revisar lo que genera, probarlo y mejorarlo.
+1.1 QUÉ DEBE HACER LA APLICACIÓN (OBLIGATORIO) Registrar los vehículos (placa, hora de llegada y kWh necesarios). Asignar cada vehículo, en orden de llegada, al cargador que se libera primero (en empate, el de menor número). Calcular hora de inicio, hora de fin y espera de cada vehículo. Calcular la espera total y los ingresos, y poder cambiar el número de cargadores para volver a simular.
+2.  Datos de Entrada: La aplicación carga este archivo datos/entrada.json al iniciar y debe poder cargar otro con la misma estructura. 
+2.1. ejemplo : { "estacion": "Norte", "potencia": 10, "precio": 1500, "vehiculos": [ {"placa": "A", "llegada": 8, "kwh": 20}, {"placa": "B", "llegada": 8, "kwh": 10} ] }
+3.  Qué debe verse:
+Visualización 1 - Linea de tiempo Gantt
+-  Eje horizontal con las horas del día y una fila por cargador.
+-  Cada vehículo es un bloque con su placa, desde que inicia hasta que termina, con un color distinto.
+-  El tramo de espera (llegada → inicio) se ve con rayas o en gris.
+Vizualización 2 - · Tarjetas de cargadores con estado
+-  Una tarjeta por cargador con su estado a la hora elegida en un deslizador de tiempo: libre u ocupado (con placa).
+-  Barra de progreso del % de carga que avanza al mover el deslizador.
+-  Colores distintos para libre y ocupado.
+Vizualización 3
+-  Tres indicadores grandes: espera total, energía vendida (kWh) e ingresos ($).
+-   Un control para cambiar el número de cargadores (1 a 6) que vuelve a simular y actualiza todo.
+-   Un aviso si algún vehículo espera más de 1 hora.
+Diseño General 
+-  Jerarquía clara: se entiende qué es lo más importante con solo mirar la pantalla.
+-   Colores con significado (no decorativos) y tema claro/oscuro.
+-   Textos y números legibles en proyector.
+-  Los controles responden al instante y no hay errores visuales ni textos cortados.
+4. Reto Funcional
+-  Mostrar la hora de mayor ocupación.
+5.  Usa Este Caso de Verificacion como prueba
+-  2 cargadores de 10 kW, precio $1 500/kWh. Vehículos: A llega a las 8 h con 20 kWh · B a las 8 h con 10 kWh · C a las 9 h con 30 kWh · D a las 9 h con 10 kWh.
+5.5. Resultado esperado 
+-  A cargador 1, de 8 a 10 h 
+-  B cargador 2, de 8 a 9 h 
+-  C cargador 2, de 9 a 12 h 
+-  D cargador 1, de 10 a 11 h (espera 1 h)
+
+-   Espera total 1 hora
+-   Energía vendida e ingresos 70 kWh · $105 000
